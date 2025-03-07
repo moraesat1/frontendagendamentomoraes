@@ -10,27 +10,20 @@
             font-family: Arial, sans-serif;
             margin: 20px;
             padding: 0;
-            background-color: #1f1f1f;
+            background-color: #f0f0f0;
         }
 
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background: rgb(24, 24, 24);
+            background: white;
             padding: 30px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
-        .logo {
-            display: block;
-            margin: 0 auto 20px auto;
-            max-width: 100%;
-            height: auto;
-        }
-
         h1 {
-            color: #fdbc19;
+            color: #2c3e50;
             text-align: center;
             margin-bottom: 30px;
         }
@@ -42,27 +35,27 @@
         label {
             display: block;
             margin-bottom: 5px;
-            color: #ffd038;
+            color: #34495e;
             font-weight: bold;
         }
 
         input, textarea, select {
             width: 100%;
             padding: 10px;
-            border: 2px solid #ffbf00;
+            border: 2px solid #bdc3c7;
             border-radius: 5px;
             font-size: 16px;
             transition: border-color 0.3s ease;
         }
 
         input:focus, textarea:focus, select:focus {
-            border-color: #dbac34;
+            border-color: #3498db;
             outline: none;
         }
 
         button {
-            background-color: hwb(49 0% 0%);
-            color: rgb(0, 0, 0);
+            background-color: #3498db;
+            color: white;
             padding: 15px 30px;
             border: none;
             border-radius: 5px;
@@ -73,7 +66,7 @@
         }
 
         button:hover {
-            background-color: #fdd55e;
+            background-color: #2980b9;
         }
 
         .success-message {
@@ -88,13 +81,9 @@
             padding: 20px;
         }
     </style>
-    <link rel="icon" type="image/x-icon" href="images/moraesassistenciatecnica.png">
 </head>
 <body>
     <div class="container">
-        <!-- Logo da Empresa -->
-        <img src="images/ASSISTÊNCIA TÉCNICA-Photoroom.png" alt="Logo Moraes Assistência Técnica" class="logo">
-        
         <h1>Agende Sua Visita Técnica</h1>
         <form id="formAgendamento" action="enviar_email.php" method="POST">
             <div class="form-group">
@@ -121,11 +110,9 @@
                 <label for="servico">Tipo de Serviço:</label>
                 <select id="servico" name="servico" required>
                     <option value="">Selecione...</option>
-                    <option value="Manutencao Preventiva">Manutencao Preventiva</option>
-                    <option value="Afiacao de Laminas">Afiacao de Laminas</option>
-                    <option value="Afiacao de Tesouras">Afiacao de Tesouras</option>
-                    <option value="Maquina Barulhenta: Troca de Guia e Mola">Maquina Barulhenta: Troca de Guia e Mola</option>
-                    <option value="Aplicacao de Pelicula Adesiva">Aplicacao de Pelicula Adesiva</option>
+                    <option value="Manutenção">Manutenção Preventiva</option>
+                    <option value="Reparo">Reparo de Equipamentos</option>
+                    <option value="Instalação">Instalação de Novos Equipamentos</option>
                 </select>
             </div>
 
@@ -141,8 +128,8 @@
 
     <script>
         // Validação e Envio do Formulário
-                document.getElementById('formAgendamento').addEventListener('submit', function(e) {
-        e.preventDefault();
+        document.getElementById('formAgendamento').addEventListener('submit', function(e) {
+            e.preventDefault();
             
             // Validação do Telefone
             const telefone = document.getElementById('telefone').value;
@@ -151,28 +138,11 @@
                 return;
             }
 
-            // Validação de Data e Horário
+            // Validação de Data
             const dataSelecionada = new Date(document.getElementById('data').value);
             const dataAtual = new Date();
-
-            // Verifica se a data selecionada é no futuro
             if (dataSelecionada < dataAtual) {
                 showMessage('Selecione uma data futura para o agendamento', 'error');
-                return;
-            }
-
-            // Verifica o dia da semana (0 = Domingo, 1 = Segunda, ..., 6 = Sábado)
-            const diaSemana = dataSelecionada.getDay();
-            if (diaSemana === 0 || diaSemana === 6) {
-                showMessage('Agendamentos disponíveis apenas de segunda a sexta', 'error');
-                return;
-            }
-
-            // Verifica o horário (10:00 às 16:30)
-            const hora = dataSelecionada.getHours();
-            const minutos = dataSelecionada.getMinutes();
-            if (hora < 10 || (hora === 16 && minutos > 30) || hora > 16) {
-                showMessage('Horário disponível apenas das 10:00 às 16:30', 'error');
                 return;
             }
 
